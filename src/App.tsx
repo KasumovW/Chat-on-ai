@@ -1,7 +1,13 @@
+import Chat from './components/Chat'
+import Header from './components/Header'
+import Sent from './components/Sent'
+
 function App() {
   return (
     <div>
-      <h1>asd</h1>
+      <Header />
+      <Chat />
+      <Sent />
     </div>
   )
 }
