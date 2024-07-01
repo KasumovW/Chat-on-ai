@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   AppBar,
   Toolbar,
@@ -14,7 +13,7 @@ const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ height: '150px', backgroundColor: '#3f4ef4' }}
+      sx={{ height: '100px', backgroundColor: '#3f4ef4' }}
     >
       <Toolbar
         sx={{

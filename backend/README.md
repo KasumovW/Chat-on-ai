@@ -45,6 +45,7 @@ Enter a query: How many locations does WeWork have?
 ```
 ollama pull miqu-1-70b.q5_K_M
 MODEL=miqu-1-70b.q5_K_M python privateGPT.py
+MODEL=miqu-1-70b.q5_K_M python privateGPTAPI.py
 ```
 
 ## Add more files

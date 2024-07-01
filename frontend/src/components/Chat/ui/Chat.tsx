@@ -1,9 +1,9 @@
-import { Box } from '@mui/material'
-import Message from './Message'
+import Message from './components/Message'
+import { Grid } from '@mui/material'
 
 const Chat = () => {
   return (
-    <Box sx={{ p: 2, backgroundColor: '#f5f5f5', height: '100vh' }}>
+    <Grid flex={1} item sx={{ p: 2, backgroundColor: '#f5f5f5' }}>
       <Message
         text="Hello, how are you doing?"
         time="08:15 AM"
@@ -23,7 +23,7 @@ const Chat = () => {
         isUser={true}
       />
       <Message text="..." time="" sender="Assistant" isUser={false} />
-    </Box>
+    </Grid>
   )
 }
 

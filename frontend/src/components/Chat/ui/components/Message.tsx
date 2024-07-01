@@ -1,7 +1,13 @@
-import React from 'react'
 import { Box, Avatar, Typography } from '@mui/material'
 
-const Message = ({ text, time, sender, isUser }) => {
+interface MessageProps {
+  text: string
+  time: string
+  sender: string
+  isUser: boolean
+}
+
+const Message = ({ text, time, sender, isUser }: MessageProps) => {
   return (
     <Box
       sx={{
