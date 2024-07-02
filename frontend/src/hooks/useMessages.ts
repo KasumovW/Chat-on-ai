@@ -14,10 +14,9 @@ interface IResponseMessage {
   time_taken?: number
 }
 
-const getCurrentTime = () => new Date(Date.now()).toLocaleDateString('ru-RU', {
+const getCurrentTime = () => new Date(Date.now()).toLocaleTimeString('ru-RU', {
   hour: 'numeric',
   minute: 'numeric',
-  second: 'numeric',
 })
 
 export const useMessages = () => {

@@ -22,20 +22,33 @@ const Chat = ({ messages = [], isTexting }: ChatProps) => {
   }, [messages])
 
   return (
-    <Grid flex={1} item sx={{ p: 2, overflowY: 'auto' }}>
-      {messages.map(({ message, time, isUser }, index) => (
-        <Message
-          key={index}
-          text={message.answer}
-          time={time}
-          sender={isUser ? 'User' : 'Assistant'}
-          isUser={isUser}
-        />
-      ))}
-      {isTexting && (
-        <Message texting text="..." time="" sender="Assistant" isUser={false} />
-      )}
-      <div ref={messagesEndRef} />
+    <Grid
+      flex={1}
+      justifyContent={'center'}
+      container
+      sx={{ overflowY: 'auto' }}
+    >
+      <Grid item sx={{ p: 2, maxWidth: '768px' }}>
+        {messages.map(({ message, time, isUser }, index) => (
+          <Message
+            key={index}
+            text={message.answer}
+            time={time}
+            sender={isUser ? 'User' : 'Assistant'}
+            isUser={isUser}
+          />
+        ))}
+        {isTexting && (
+          <Message
+            texting
+            text="..."
+            time=""
+            sender="Assistant"
+            isUser={false}
+          />
+        )}
+        <div ref={messagesEndRef} />
+      </Grid>
     </Grid>
   )
 }

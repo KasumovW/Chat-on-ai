@@ -23,14 +23,14 @@ const Message = ({
       let i = 1
       const interval = setInterval(() => {
         setText(() => {
-          const newText = propsText.slice(0, (i + 1) * 5)
+          const newText = propsText.slice(0, i + 1)
           if (propsText.length <= newText.length) {
             clearInterval(interval)
           }
           i++
           return newText
         })
-      }, 100)
+      }, 20)
     }
   }, [isUser, propsText])
 
@@ -74,7 +74,12 @@ const Message = ({
           {texting ? (
             <div className="loader"></div>
           ) : isUser ? (
-            <Typography variant="body2">
+            <Typography
+              variant="body2"
+              sx={{
+                whiteSpace: 'pre-wrap',
+              }}
+            >
               <div
                 dangerouslySetInnerHTML={{
                   __html: text.replace(/(\r\n|\n|\r)/gm, '<br>'),

@@ -52,7 +52,6 @@ const Sent = ({ askQuestion, isLoading }: SentProps) => {
                 <SendIcon />
               </IconButton>
             ),
-            sx: { },
             disableUnderline: true,
           }}
         />

@@ -1,1 +1,1 @@
- export {default as Sent} from './ui/Sent'
+ export { default as Sent } from './ui/Sent'
