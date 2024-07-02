@@ -14,8 +14,22 @@ interface IResponseMessage {
   time_taken?: number
 }
 
+const getCurrentTime = () => new Date(Date.now()).toLocaleDateString('ru-RU', {
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+})
+
 export const useMessages = () => {
-  const [messages, setMessage] = useState<IMessage[]>([])
+  const [messages, setMessage] = useState<IMessage[]>([
+    {
+      message: {
+        answer: 'Здраствуйте! Какой у вас вопрос?',
+      },
+      time: getCurrentTime(),
+      isUser: false,
+    }
+  ])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<any>(null)
 
@@ -28,7 +42,7 @@ export const useMessages = () => {
           message: {
             answer: text,
           },
-          time: new Date(Date.now()).toLocaleDateString('ru-RU'),
+          time: getCurrentTime(),
           isUser: true,
         },
       ])
@@ -42,7 +56,7 @@ export const useMessages = () => {
         ...prev,
         {
           message: data,
-          time: new Date(Date.now()).toLocaleDateString('ru-RU'),
+          time: getCurrentTime(),
           isUser: false,
         },
       ])

@@ -18,22 +18,21 @@ const Message = ({
   texting = false,
 }: MessageProps) => {
   const [text, setText] = useState(isUser ? propsText : propsText.slice(0, 5))
-
-useEffect(() => {
-  if (isUser === false) {
-    let i = 1
-    const interval = setInterval(() => {
-      setText(() => {
-        const newText = propsText.slice(0, (i + 1) * 5)
-        if (propsText.length <= newText.length) {
-          clearInterval(interval)
-        }
-        i++
-        return newText
-      })
-    }, 100)
-  }
-}, [isUser, propsText])
+  useEffect(() => {
+    if (isUser === false) {
+      let i = 1
+      const interval = setInterval(() => {
+        setText(() => {
+          const newText = propsText.slice(0, (i + 1) * 5)
+          if (propsText.length <= newText.length) {
+            clearInterval(interval)
+          }
+          i++
+          return newText
+        })
+      }, 100)
+    }
+  }, [isUser, propsText])
 
   return (
     <Box
@@ -65,17 +64,23 @@ useEffect(() => {
         )}
         <Box
           sx={{
-            backgroundColor: isUser ? '#3f4ef4' : '#e5f3ff',
+            backgroundColor: isUser ? '#07f' : '#e5f3ff',
             color: isUser ? '#fff' : '#000',
             p: 1,
-            borderRadius: 2,
+            borderRadius: isUser ? 2 : 4,
             maxWidth: '95%',
           }}
         >
           {texting ? (
             <div className="loader"></div>
           ) : isUser ? (
-            <Typography variant="body2">{text}</Typography>
+            <Typography variant="body2">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: text.replace(/(\r\n|\n|\r)/gm, '<br>'),
+                }}
+              />
+            </Typography>
           ) : (
             <Markdown className="markdown-body">{text}</Markdown>
           )}

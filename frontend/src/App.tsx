@@ -8,16 +8,10 @@ function App() {
   const { askQuestion, messages, isLoading } = useMessages()
 
   return (
-    <Grid
-      direction={'column'}
-      maxWidth={1100}
-      m={'auto'}
-      container
-      height={'100vh'}
-    >
+    <Grid direction={'column'} m={'auto'} container height={'100vh'}>
       <Header />
       <Chat isTexting={isLoading} messages={messages} />
-      <Sent askQuestion={askQuestion} />
+      <Sent {...{ askQuestion, isLoading }} />
     </Grid>
   )
 }
