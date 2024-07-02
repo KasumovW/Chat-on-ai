@@ -13,3 +13,4 @@ pypandoc==1.11
 tqdm==4.66.1
 sentence_transformers==2.2.2
 flask==3.0.3
+flask-cors==4.0.1

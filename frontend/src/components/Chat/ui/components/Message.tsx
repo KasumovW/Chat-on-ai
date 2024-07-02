@@ -1,13 +1,40 @@
 import { Box, Avatar, Typography } from '@mui/material'
-
+import Markdown from 'markdown-to-jsx'
+import './markdownStyles.css'
+import { useEffect, useState } from 'react'
 interface MessageProps {
   text: string
   time: string
   sender: string
   isUser: boolean
+  texting?: boolean
 }
 
-const Message = ({ text, time, sender, isUser }: MessageProps) => {
+const Message = ({
+  text: propsText,
+  time,
+  sender,
+  isUser,
+  texting = false,
+}: MessageProps) => {
+  const [text, setText] = useState(isUser ? propsText : propsText.slice(0, 5))
+
+useEffect(() => {
+  if (isUser === false) {
+    let i = 1
+    const interval = setInterval(() => {
+      setText(() => {
+        const newText = propsText.slice(0, (i + 1) * 5)
+        if (propsText.length <= newText.length) {
+          clearInterval(interval)
+        }
+        i++
+        return newText
+      })
+    }, 100)
+  }
+}, [isUser, propsText])
+
   return (
     <Box
       sx={{
@@ -17,7 +44,6 @@ const Message = ({ text, time, sender, isUser }: MessageProps) => {
         mb: 2,
       }}
     >
-      {/* Аватар */}
       {!isUser && (
         <Avatar
           src="/path/to/avatar.jpg"
@@ -32,25 +58,28 @@ const Message = ({ text, time, sender, isUser }: MessageProps) => {
           alignItems: isUser ? 'flex-end' : 'flex-start',
         }}
       >
-        {/* Имя отправителя */}
         {!isUser && (
           <Typography variant="caption" sx={{ mb: 0.5 }}>
             {sender}
           </Typography>
         )}
-        {/* Текст сообщения */}
         <Box
           sx={{
             backgroundColor: isUser ? '#3f4ef4' : '#e5f3ff',
             color: isUser ? '#fff' : '#000',
             p: 1,
             borderRadius: 2,
-            maxWidth: '300px',
+            maxWidth: '95%',
           }}
         >
-          <Typography variant="body2">{text}</Typography>
+          {texting ? (
+            <div className="loader"></div>
+          ) : isUser ? (
+            <Typography variant="body2">{text}</Typography>
+          ) : (
+            <Markdown className="markdown-body">{text}</Markdown>
+          )}
         </Box>
-        {/* Время отправки */}
         <Typography variant="caption" sx={{ mt: 0.5, color: 'gray' }}>
           {time}
         </Typography>

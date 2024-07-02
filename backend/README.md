@@ -8,7 +8,7 @@ pip install -r requirements.txt
 #### Step 3: Pull the models (if you already have models loaded in Ollama, then not required)
 #### Make sure to have Ollama running on your system from https://ollama.ai
 ```
-ollama pull mistral
+ollama pull wavecut/vikhr
 ```
 
 #### Step 4: put your files in the source_documents folder after making a directory
@@ -43,9 +43,9 @@ Enter a query: How many locations does WeWork have?
 
 ### Try with a different model:
 ```
-ollama pull miqu-1-70b.q5_K_M
-MODEL=miqu-1-70b.q5_K_M python privateGPT.py
-MODEL=miqu-1-70b.q5_K_M python privateGPTAPI.py
+ollama pull vwavecut/vikhr
+MODEL=wavecut/vikhr python privateGPT.py
+MODEL=wavecut/vikhr python privateGPTAPI.py
 ```
 
 ## Add more files
