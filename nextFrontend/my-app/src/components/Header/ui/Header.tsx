@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,12 +16,12 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { Logo } from 'assets/Logo'
+import { Logo } from '@/assets/Logo'
 
-const Header = ({ toggleTheme }) => {
+const Header = ({ toggleTheme }: any) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = (open: any) => (event: any) => {
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')

@@ -28,7 +28,7 @@ const Chat = ({ messages = [], isTexting }: ChatProps) => {
       container
       sx={{ overflowY: 'auto' }}
     >
-      <Grid item sx={{ p: 2, maxWidth: '768px' }}>
+      <Grid item sx={{ p: 2, maxWidth: '768px', width: '100%' }}>
         {messages.map(({ message, time, isUser }, index) => (
           <Message
             key={index}
