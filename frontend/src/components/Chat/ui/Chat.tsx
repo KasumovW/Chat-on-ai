@@ -6,9 +6,10 @@ import { useEffect, useRef } from 'react'
 interface ChatProps {
   messages: IMessage[]
   isTexting: boolean
+  map: Record<string, string>
 }
 
-const Chat = ({ messages = [], isTexting }: ChatProps) => {
+const Chat = ({ messages = [], isTexting, map }: ChatProps) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = () => {
@@ -38,6 +39,7 @@ const Chat = ({ messages = [], isTexting }: ChatProps) => {
               time={time}
               sender={isUser ? "User" : "Assistant"}
               isUser={isUser}
+              map={map}
             />
           );
         })}

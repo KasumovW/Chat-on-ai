@@ -1,28 +1,30 @@
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
-const system_prompt = 'Ты — чат-бот, разработанный для помощи разработчикам, использующим документацию RuStore. Твоя задача — отвечать на вопросы пользователей и помогать им решать ошибки в программном коде, основываясь на документации RuStore. Отвечай на русском языке, предоставляй конкретную и четкую информацию, и избегай неопределенных и общих ответов.'
+const system_prompt =
+  'Ты — чат-бот, разработанный для помощи разработчикам, использующим документацию RuStore. Твоя задача — отвечать на вопросы пользователей и помогать им решать ошибки в программном коде, основываясь на документации. Отвечай на русском языке, предоставляй конкретную и четкую информацию, и избегай неопределенных и общих ответов.'
 
 const getCurrentTime = () =>
-  new Date(Date.now()).toLocaleTimeString("ru-RU", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+  new Date(Date.now()).toLocaleTimeString('ru-RU', {
+    hour: 'numeric',
+    minute: 'numeric',
+  })
 
 export const useMessages = () => {
   const [messages, setMessage] = useState<IMessage[]>([
     {
-      message: "Здраствуйте! Какой у вас вопрос?",
+      message: 'Здраствуйте! Какой у вас вопрос?',
       time: getCurrentTime(),
       isUser: false,
     },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  ])
+  const [isLoading, setIsLoading] = useState(false)
+  const [map, setMap] = useState<Record<string, string>>({})
+  const [error, setError] = useState<any>(null)
 
   const askQuestion = async (prompt: string) => {
     try {
-      setIsLoading(true);
+      setIsLoading(true)
       setMessage((prev) => [
         ...prev,
         {
@@ -30,9 +32,9 @@ export const useMessages = () => {
           time: getCurrentTime(),
           isUser: true,
         },
-      ]);
+      ])
       const { data } = await axios.post<IResponseMessage>(
-        "http://localhost:8001/v1/completions",
+        'http://localhost:8001/v1/completions',
         {
           include_sources: true,
           prompt,
@@ -40,7 +42,7 @@ export const useMessages = () => {
           system_prompt,
           use_context: true,
         }
-      );
+      )
       setMessage((prev) => [
         ...prev,
         {
@@ -48,62 +50,76 @@ export const useMessages = () => {
           time: getCurrentTime(),
           isUser: false,
         },
-      ]);
+      ])
     } catch (err) {
       // @ts-ignore
-      setError(err.data);
+      setError(err.data)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
+
+  const fetchMap = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:8002/map')
+      setMap(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchMap()
+  }, [])
 
   return {
     messages,
     askQuestion,
     isLoading,
     error,
-  };
-};
+    map
+  }
+}
 
 export interface IMessage {
-  message: string | IResponseMessage;
-  time: string;
-  isUser: boolean;
+  message: string | IResponseMessage
+  time: string
+  isUser: boolean
 }
 
 interface IResponseMessage {
-  id: string;
-  object: string;
-  created: number;
-  model: string;
+  id: string
+  object: string
+  created: number
+  model: string
   choices: [
     {
-      finish_reason: string;
-      delta: null;
+      finish_reason: string
+      delta: null
       message: {
-        role: string;
-        content: string;
-      };
+        role: string
+        content: string
+      }
       sources: {
-        object: string;
-        score: number;
+        object: string
+        score: number
         document: {
-          object: string;
-          doc_id: string;
+          object: string
+          doc_id: string
           doc_metadata: {
-            window: string;
-            original_text: string;
-            file_name: string;
-            doc_id: string;
-          };
-        };
-        text: string;
-        previous_texts: null;
-        next_texts: null;
-      }[];
-      index: number;
-    }
-  ];
+            window: string
+            original_text: string
+            file_name: string
+            doc_id: string
+          }
+        }
+        text: string
+        previous_texts: null
+        next_texts: null
+      }[]
+      index: number
+    },
+  ]
 }
 // {
 //   "id": "1f1e751d-addf-4572-b778-8c33942374d2",

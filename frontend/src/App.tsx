@@ -5,12 +5,12 @@ import { Sent } from 'components/Sent'
 import { useMessages } from 'hooks/useMessages'
 
 function App() {
-  const { askQuestion, messages, isLoading } = useMessages()
+  const { askQuestion, messages, isLoading, map } = useMessages()
 
   return (
     <Grid direction={'column'} m={'auto'} container height={'100vh'}>
       <Header toggleTheme />
-      <Chat isTexting={isLoading} messages={messages} />
+      <Chat map={map} isTexting={isLoading} messages={messages} />
       <Sent {...{ askQuestion, isLoading }} />
     </Grid>
   )

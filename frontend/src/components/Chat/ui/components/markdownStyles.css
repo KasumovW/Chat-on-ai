@@ -26,10 +26,15 @@
 .markdown-body a {
   color: #1a0dab;
   text-decoration: none;
+  font-weight: bold;  /* Добавлено: полужирный текст */
+  padding: 2px 4px;   /* Добавлено: отступы */
+  background: #e0e0e0;  /* Добавлено: фон */
+  border-radius: 4px;  /* Добавлено: скругленные углы */
 }
 
 .markdown-body a:hover {
   text-decoration: underline;
+  background: #d4d4d4;  /* Изменено: фон при наведении */
 }
 
 .markdown-body ul,
