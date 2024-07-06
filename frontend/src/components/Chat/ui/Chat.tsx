@@ -24,24 +24,27 @@ const Chat = ({ messages = [], isTexting }: ChatProps) => {
   return (
     <Grid
       flex={1}
-      justifyContent={'center'}
+      justifyContent={"center"}
       container
-      sx={{ overflowY: 'auto' }}
+      sx={{ overflowY: "auto" }}
     >
-      <Grid item sx={{ p: 2, maxWidth: '768px', width: '100%' }}>
-        {messages.map(({ message, time, isUser }, index) => (
-          <Message
-            key={index}
-            text={message.answer}
-            time={time}
-            sender={isUser ? 'User' : 'Assistant'}
-            isUser={isUser}
-          />
-        ))}
+      <Grid item sx={{ p: 2, maxWidth: "768px", width: "100%" }}>
+        {messages.map((item, index) => {
+          const { time, isUser } = item;
+          return (
+            <Message
+              messageProps={item}
+              key={index}
+              time={time}
+              sender={isUser ? "User" : "Assistant"}
+              isUser={isUser}
+            />
+          );
+        })}
         {isTexting && (
           <Message
             texting
-            text="..."
+            messageProps={{ message: "", time: "", isUser: false }}
             time=""
             sender="Assistant"
             isUser={false}
