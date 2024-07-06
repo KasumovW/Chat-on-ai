@@ -96,7 +96,7 @@ const Message = ({
             <Markdown className="markdown-body">{text}</Markdown>
           )}
         </Box>
-        {sources.length > 0 && (
+        {propsText.length <= text.length && sources.length > 0 && (
           <Box
             sx={{
               mt: 1,
@@ -106,15 +106,15 @@ const Message = ({
               maxWidth: "95%",
             }}
           >
-            <Typography variant="caption" sx={{ fontWeight: "bold" }}>
+            <Markdown className="markdown-body">
               Источники:
-            </Typography>
+            </Markdown>
             <ul>
               {sources.map((source, index) => (
                 <li key={index}>
-                  <Typography variant="caption">
+                  <Markdown className="markdown-body">
                     {source.document.doc_metadata.original_text}
-                  </Typography>
+                  </Markdown>
                 </li>
               ))}
             </ul>
