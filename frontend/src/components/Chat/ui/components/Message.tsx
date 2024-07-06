@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Avatar, Typography } from "@mui/material";
 import Markdown from "markdown-to-jsx";
 import "./markdownStyles.css";
@@ -22,8 +20,10 @@ const Message = ({
   texting = false,
 }: MessageProps) => {
   const { message } = messageProps;
-  const propsText = typeof message === 'string' ? message : message.choices[0].message.content
+  const propsText = typeof message === 'string' ? message : message.choices[0].message.content;
+  const sources = typeof message !== 'string' ? message.choices[0].sources : [];
   const [text, setText] = useState(isUser ? propsText : propsText.slice(0, 5));
+  
   useEffect(() => {
     if (isUser === false) {
       let i = 1;
@@ -96,6 +96,30 @@ const Message = ({
             <Markdown className="markdown-body">{text}</Markdown>
           )}
         </Box>
+        {sources.length > 0 && (
+          <Box
+            sx={{
+              mt: 1,
+              backgroundColor: "#f9f9f9",
+              borderRadius: 2,
+              p: 1,
+              maxWidth: "95%",
+            }}
+          >
+            <Typography variant="caption" sx={{ fontWeight: "bold" }}>
+              Источники:
+            </Typography>
+            <ul>
+              {sources.map((source, index) => (
+                <li key={index}>
+                  <Typography variant="caption">
+                    {source.document.doc_metadata.original_text}
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          </Box>
+        )}
         <Typography variant="caption" sx={{ mt: 0.5, color: "gray" }}>
           {time}
         </Typography>

@@ -114,8 +114,8 @@ legend {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #07f;
+  color: #07f;
   animation: loader 1s infinite linear alternate;
   animation-delay: 0.5s;
 }
@@ -131,8 +131,8 @@ legend {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #07f;
+  color: #07f;
   animation: loader 1s infinite alternate;
   animation-delay: 0s;
 }
@@ -141,18 +141,18 @@ legend {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #07f;
+  color: #07f;
   animation: loader 1s infinite alternate;
   animation-delay: 1s;
 }
 
 @keyframes loader {
   0% {
-    background-color: #9880ff;
+    background-color: #07f;
   }
   50%,
   100% {
-    background-color: rgba(152, 128, 255, 0.2);
+    background-color: rgba(0, 119, 255, 0.2);
   }
 }
