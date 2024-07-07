@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server": "node src/server.js",
-    "parce": "parce src/server.js",
-    "load": "load src/server.js"
+    "parce": "node src/parce.js",
+    "load": "load src/load.js"
   },
   "keywords": [],
   "author": "",
