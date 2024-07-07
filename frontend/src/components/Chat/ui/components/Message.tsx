@@ -115,11 +115,15 @@ const Message = ({
             <Markdown className="markdown-body">
               Более подробно вы можете прочитать здесь:
             </Markdown>
+            <br />
             <div className="markdown-body">
               {fileNames.map((name) => (
-                <a target="_blank" href={map[name]}>
-                  {name.split('.')[0]}
-                </a>
+                <>
+                  <a target="_blank" href={map[name]}>
+                    {name.slice(0, name.lastIndexOf('.'))}
+                  </a>
+                  <br />
+                </>
               ))}
             </div>
           </Box>

@@ -7,6 +7,7 @@
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
 }
 
 .markdown-body h1,
@@ -26,15 +27,15 @@
 .markdown-body a {
   color: #1a0dab;
   text-decoration: none;
-  font-weight: bold;  /* Добавлено: полужирный текст */
-  padding: 2px 4px;   /* Добавлено: отступы */
-  background: #e0e0e0;  /* Добавлено: фон */
-  border-radius: 4px;  /* Добавлено: скругленные углы */
+  font-weight: bold;
+  padding: 2px 4px;
+  background: #e0e0e0;
+  border-radius: 4px;
 }
 
 .markdown-body a:hover {
   text-decoration: underline;
-  background: #d4d4d4;  /* Изменено: фон при наведении */
+  background: #d4d4d4;
 }
 
 .markdown-body ul,
@@ -48,6 +49,7 @@
   padding: 10px;
   border-radius: 5px;
   overflow-x: auto;
+  max-width: 100%;
 }
 
 .markdown-body code {
@@ -55,7 +57,7 @@
   color: white;
   padding: 2px 4px;
   border-radius: 4px;
-  font-family: Consolas, 'Courier New', monospace;
+  font-family: Consolas, "Courier New", monospace;
 }
 
 .markdown-body blockquote {
