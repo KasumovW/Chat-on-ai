@@ -26,7 +26,8 @@
 
 bash
 
-`py -3.11 -m venv <name> <name>Scriptsactivate`
+`py -3.11 -m venv <name> `
+`<name>Scriptsactivate `
 
 ### Установка и запуск желаемой конфигурации
 
@@ -81,37 +82,21 @@ cmd
 
 `set PGPT_PROFILES=ollama make run`
 
-### Локальная настройка с Ollama - РЕКОМЕНДУЕМАЯ
+### Локальная настройка - РЕКОМЕНДУЕМАЯ
 
-Самый простой способ запустить PrivateGPT полностью локально - использовать Ollama для LLM. Ollama предоставляет локальный LLM и Embeddings, легко устанавливаемые и используемые, абстрагируя сложность поддержки GPU. Это рекомендуемая настройка для локальной разработки.
+Самый простой способ запустить PrivateGPT полностью локально. Это рекомендуемая настройка для локальной разработки.
 
-1.  Перейдите на [ollama.ai](https://ollama.ai) и следуйте инструкциям для установки Ollama на ваш компьютер.
-2.  После установки убедитесь, что приложение Ollama закрыто.
-3.  Установите модели для использования, настройки по умолчанию `settings-ollama.yaml` настроены для использования LLM mistral 7b (~4GB) и Embeddings nomic-embed-text (~275MB). Следовательно:
+1.  В терминале установите PrivateGPT с помощью следующей команды:
 
     bash
 
-    `ollama pull mistral ollama pull nomic-embed-text`
+    `poetry install --extras "ui llms-llama-cpp embeddings-huggingface vector-stores-qdrant"`
 
-4.  Запустите сервис Ollama (он запустит локальный сервер вывода, обслуживающий LLM и Embeddings):
-
-    bash
-
-    `ollama serve`
-
-5.  В другом терминале установите PrivateGPT с помощью следующей команды:
+6.  После установки вы можете запустить PrivateGPT.
 
     bash
 
-    `poetry install --extras "ui llms-ollama embeddings-ollama vector-stores-qdrant"`
-
-6.  После установки вы можете запустить PrivateGPT. Убедитесь, что Ollama работает локально перед запуском следующей команды.
-
-    bash
-
-    `PGPT_PROFILES=ollama make run`
-
-PrivateGPT будет использовать уже существующий файл настроек `settings-ollama.yaml`, который настроен для использования Ollama LLM и Embeddings, а также Qdrant. Проверьте и адаптируйте его под свои нужды (разные модели, разные порты Ollama и т.д.).
+    `PGPT_PROFILES=local make run`
 
 UI будет доступен по адресу [http://localhost:8001](http://localhost:8001).
 
