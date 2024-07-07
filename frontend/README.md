@@ -1,30 +1,119 @@
-# React + TypeScript + Vite
+## Описание UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Этот проект является фронтенд-частью для чат-хакатона, разработанного с использованием Vite. Он взаимодействует с парсером, который предоставляет карту документов, и позволяет пользователям просматривать и навигировать по этим документам.
 
-Currently, two official plugins are available:
+## Структура проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `src/`: Директория с исходным кодом проекта.
+- `public/`: Публичная директория для статических файлов.
+- `index.html`: Основной HTML файл.
+- `vite.config.ts`: Конфигурация Vite.
 
-## Expanding the ESLint configuration
+## Скрипты
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+В проекте определены следующие скрипты для разработки и сборки проекта:
 
-- Configure the top-level `parserOptions` property like this:
+- `"dev"`: Запуск сервера разработки.
+- `"build"`: Сборка проекта для продакшн.
+- `"lint"`: Запуск линтера для проверки кода.
+- `"preview"`: Предпросмотр собранного проекта.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Установка
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Перед началом работы убедитесь, что у вас установлены Node.js и npm. Затем выполните следующие шаги:
+
+1.  Склонируйте репозиторий:
+
+    bash
+
+    `git clone <URL репозитория>`
+
+2.  Перейдите в директорию проекта:
+
+    bash
+
+    `cd <имя директории проекта>`
+
+3.  Установите зависимости:
+
+    bash
+
+    `npm install`
+
+## Использование
+
+### Запуск сервера разработки
+
+Для запуска сервера разработки выполните следующую команду:
+
+bash
+
+Копировать код
+
+`npm run dev`
+
+### Сборка проекта
+
+Чтобы собрать проект для продакшн, используйте команду:
+
+bash
+
+Копировать код
+
+`npm run build`
+
+### Предпросмотр собранного проекта
+
+Для предпросмотра собранного проекта выполните команду:
+
+bash
+
+Копировать код
+
+`npm run preview`
+
+### Линтинг кода
+
+Для проверки кода на соответствие стандартам используйте команду:
+
+bash
+
+Копировать код
+
+`npm run lint`
+
+## Зависимости
+
+Проект использует следующие зависимости:
+
+- `@emotion/react`: Для стилизации компонентов.
+- `@emotion/styled`: Для стилизации компонентов.
+- `@mui/icons-material`: Иконки Material UI.
+- `@mui/material`: Компоненты Material UI.
+- `axios`: Для HTTP запросов.
+- `markdown-to-jsx`: Для рендеринга Markdown.
+- `prettier`: Для форматирования кода.
+- `react`: Основная библиотека React.
+- `react-dom`: Библиотека для работы с DOM в React.
+- `react-notifications`: Для отображения уведомлений.
+
+Проект использует следующие dev-зависимости:
+
+- `@trivago/prettier-plugin-sort-imports`: Плагин для сортировки импортов.
+- `@types/react`: Типы для React.
+- `@types/react-dom`: Типы для React DOM.
+- `@typescript-eslint/eslint-plugin`: Плагин ESLint для TypeScript.
+- `@typescript-eslint/parser`: Парсер ESLint для TypeScript.
+- `@vitejs/plugin-react`: Плагин Vite для React.
+- `eslint`: Линтер для JavaScript и TypeScript.
+- `eslint-plugin-react-hooks`: Плагин ESLint для хуков React.
+- `eslint-plugin-react-refresh`: Плагин ESLint для React Refresh.
+- `typescript`: Язык программирования TypeScript.
+- `vite`: Бандлер для веб-приложений.
+- `vite-tsconfig-paths`: Плагин Vite для поддержки путей из tsconfig.
+
+## Дополнительная информация
+
+Этот проект предназначен для работы с бекендом, который предоставляет карту документов. Убедитесь, что бекенд запущен и доступен перед запуском фронтенда.
+
+Если у вас возникнут вопросы или проблемы, пожалуйста, создайте issue в репозитории.

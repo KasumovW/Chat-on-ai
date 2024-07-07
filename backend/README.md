@@ -1,161 +1,172 @@
-# 🔒 PrivateGPT 📑
+## Установка
 
-[![Tests](https://github.com/imartinez/privateGPT/actions/workflows/tests.yml/badge.svg)](https://github.com/imartinez/privateGPT/actions/workflows/tests.yml?query=branch%3Amain)
-[![Website](https://img.shields.io/website?up_message=check%20it&down_message=down&url=https%3A%2F%2Fdocs.privategpt.dev%2F&label=Documentation)](https://docs.privategpt.dev/)
+Перед началом установки важно ознакомиться с основными концепциями.
 
-[![Discord](https://img.shields.io/discord/1164200432894234644?logo=discord&label=PrivateGPT)](https://discord.gg/bK6mRVpErU)
-[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/ZylonPrivateGPT)](https://twitter.com/ZylonPrivateGPT)
+### Основные требования для запуска PrivateGPT
 
+1.  **Клонируйте репозиторий PrivateGPT и перейдите в него:**
+2.  **Установите Python 3.11** (если он у вас еще не установлен). Желательно использовать менеджер версий Python, такой как pyenv. Более ранние версии Python не поддерживаются.
 
-> Install & usage docs: https://docs.privategpt.dev/
-> 
-> Join the community: [Twitter](https://twitter.com/PrivateGPT_AI) & [Discord](https://discord.gg/bK6mRVpErU)
+    - OSX/Linux: pyenv
+    - Windows: pyenv-win
 
-![Gradio UI](/fern/docs/assets/ui.png?raw=true)
+    bash
 
-PrivateGPT is a production-ready AI project that allows you to ask questions about your documents using the power
-of Large Language Models (LLMs), even in scenarios without an Internet connection. 100% private, no data leaves your
-execution environment at any point.
+    `pyenv install 3.11 pyenv local 3.11`
 
-The project provides an API offering all the primitives required to build private, context-aware AI applications.
-It follows and extends the [OpenAI API standard](https://openai.com/blog/openai-api),
-and supports both normal and streaming responses.
+3.  **Установите Poetry для управления зависимостями.**
+4.  **Установите make для возможности выполнения различных скриптов:**
 
-The API is divided into two logical blocks:
+    - OSX: (с помощью homebrew) `brew install make`
+    - Windows: (с помощью chocolatey) `choco install make`
 
-**High-level API**, which abstracts all the complexity of a RAG (Retrieval Augmented Generation)
-pipeline implementation:
-- Ingestion of documents: internally managing document parsing,
-splitting, metadata extraction, embedding generation and storage.
-- Chat & Completions using context from ingested documents:
-abstracting the retrieval of context, the prompt engineering and the response generation.
+### Настройка окружения
 
-**Low-level API**, which allows advanced users to implement their own complex pipelines:
-- Embeddings generation: based on a piece of text.
-- Contextual chunks retrieval: given a query, returns the most relevant chunks of text from the ingested documents.
+Для настройки виртуального окружения на Windows выполните следующие команды:
 
-In addition to this, a working [Gradio UI](https://www.gradio.app/)
-client is provided to test the API, together with a set of useful tools such as bulk model
-download script, ingestion script, documents folder watch, etc.
+bash
 
-> 👂 **Need help applying PrivateGPT to your specific use case?**
-> [Let us know more about it](https://forms.gle/4cSDmH13RZBHV9at7)
-> and we'll try to help! We are refining PrivateGPT through your feedback.
+`py -3.11 -m venv <name> <name>Scriptsactivate`
 
-## 🎞️ Overview
-DISCLAIMER: This README is not updated as frequently as the [documentation](https://docs.privategpt.dev/).
-Please check it out for the latest updates!
+### Установка и запуск желаемой конфигурации
 
-### Motivation behind PrivateGPT
-Generative AI is a game changer for our society, but adoption in companies of all sizes and data-sensitive
-domains like healthcare or legal is limited by a clear concern: **privacy**.
-Not being able to ensure that your data is fully under your control when using third-party AI tools
-is a risk those industries cannot take.
+PrivateGPT позволяет настраивать конфигурацию от полностью локальной до облачной, выбирая используемые модули. Доступные опции:
 
-### Primordial version
-The first version of PrivateGPT was launched in May 2023 as a novel approach to address the privacy
-concerns by using LLMs in a complete offline way.
+- **LLM**: “llama-cpp”, “ollama”, “sagemaker”, “openai”, “openailike”, “azopenai”
+- **Embeddings**: “huggingface”, “openai”, “sagemaker”, “azopenai”
+- **Vector stores**: “qdrant”, “chroma”, “postgres”
+- **UI**: включение UI (Gradio) или использование только API
 
-That version, which rapidly became a go-to project for privacy-sensitive setups and served as the seed
-for thousands of local-focused generative AI projects, was the foundation of what PrivateGPT is becoming nowadays;
-thus a simpler and more educational implementation to understand the basic concepts required
-to build a fully local -and therefore, private- chatGPT-like tool.
+Для установки необходимых зависимостей PrivateGPT предлагает различные дополнительные пакеты, которые можно комбинировать:
 
-If you want to keep experimenting with it, we have saved it in the
-[primordial branch](https://github.com/imartinez/privateGPT/tree/primordial) of the project.
+bash
 
-> It is strongly recommended to do a clean clone and install of this new version of
-PrivateGPT if you come from the previous, primordial version.
+`poetry install --extras "<extra1> <extra2>..."`
 
-### Present and Future of PrivateGPT
-PrivateGPT is now evolving towards becoming a gateway to generative AI models and primitives, including
-completions, document ingestion, RAG pipelines and other low-level building blocks.
-We want to make it easier for any developer to build AI applications and experiences, as well as provide
-a suitable extensive architecture for the community to keep contributing.
+Где `<extra>` может быть одним из следующих:
 
-Stay tuned to our [releases](https://github.com/imartinez/privateGPT/releases) to check out all the new features and changes included.
+- ui: поддержка UI с использованием Gradio
+- llms-ollama: поддержка Ollama LLM, требуется локально запущенный Ollama
+- llms-llama-cpp: поддержка локального LLM с использованием LlamaCPP
+- llms-sagemaker: поддержка Amazon Sagemaker LLM, требуются конечные точки Sagemaker
+- llms-openai: поддержка OpenAI LLM, требуется ключ API OpenAI
+- llms-openai-like: поддержка сторонних провайдеров LLM, совместимых с API OpenAI
+- llms-azopenai: поддержка Azure OpenAI LLM, требуются конечные точки Azure OpenAI
+- embeddings-ollama: поддержка Ollama Embeddings, требуется локально запущенный Ollama
+- embeddings-huggingface: поддержка локальных Embeddings с использованием HuggingFace
+- embeddings-sagemaker: поддержка Amazon Sagemaker Embeddings, требуются конечные точки Sagemaker
+- embeddings-openai: поддержка OpenAI Embeddings, требуется ключ API OpenAI
+- embeddings-azopenai: поддержка Azure OpenAI Embeddings, требуются конечные точки Azure OpenAI
+- vector-stores-qdrant: поддержка Qdrant vector store
+- vector-stores-chroma: поддержка Chroma DB vector store
+- vector-stores-postgres: поддержка Postgres vector store
 
-## 📄 Documentation
-Full documentation on installation, dependencies, configuration, running the server, deployment options,
-ingesting local documents, API details and UI features can be found here: https://docs.privategpt.dev/
+### Рекомендуемые конфигурации
 
-## 🧩 Architecture
-Conceptually, PrivateGPT is an API that wraps a RAG pipeline and exposes its
-primitives.
-* The API is built using [FastAPI](https://fastapi.tiangolo.com/) and follows
-  [OpenAI's API scheme](https://platform.openai.com/docs/api-reference).
-* The RAG pipeline is based on [LlamaIndex](https://www.llamaindex.ai/).
+Некоторые примеры рекомендуемых конфигураций. Вы можете комбинировать различные опции в зависимости от ваших потребностей. Дополнительная информация находится в разделе "Manual" документации.
 
-The design of PrivateGPT allows to easily extend and adapt both the API and the
-RAG implementation. Some key architectural decisions are:
-* Dependency Injection, decoupling the different components and layers.
-* Usage of LlamaIndex abstractions such as `LLM`, `BaseEmbedding` or `VectorStore`,
-  making it immediate to change the actual implementations of those abstractions.
-* Simplicity, adding as few layers and new abstractions as possible.
-* Ready to use, providing a full implementation of the API and RAG
-  pipeline.
+### Важно для Windows
 
-Main building blocks:
-* APIs are defined in `private_gpt:server:<api>`. Each package contains an
-  `<api>_router.py` (FastAPI layer) and an `<api>_service.py` (the
-  service implementation). Each *Service* uses LlamaIndex base abstractions instead
-  of specific implementations,
-  decoupling the actual implementation from its usage.
-* Components are placed in
-  `private_gpt:components:<component>`. Each *Component* is in charge of providing
-  actual implementations to the base abstractions used in the Services - for example
-  `LLMComponent` is in charge of providing an actual implementation of an `LLM`
-  (for example `LlamaCPP` or `OpenAI`).
+В приведенных ниже примерах или при запуске PrivateGPT с помощью `make run`, переменная окружения `PGPT_PROFILES` устанавливается inline, следуя синтаксису командной строки Unix (работает на MacOS и Linux). Если вы используете Windows, вам потребуется установить переменную окружения другим способом, например:
 
-## 💡 Contributing
-Contributions are welcomed! To ensure code quality we have enabled several format and
-typing checks, just run `make check` before committing to make sure your code is ok.
-Remember to test your code! You'll find a tests folder with helpers, and you can run
-tests using `make test` command.
+#### Powershell
 
-Don't know what to contribute? Here is the public 
-[Project Board](https://github.com/users/imartinez/projects/3) with several ideas. 
+powershell
 
-Head over to Discord 
-#contributors channel and ask for write permissions on that GitHub project.
+`$env:PGPT_PROFILES="ollama" make run`
 
-## 💬 Community
-Join the conversation around PrivateGPT on our:
-- [Twitter (aka X)](https://twitter.com/PrivateGPT_AI)
-- [Discord](https://discord.gg/bK6mRVpErU)
+#### CMD
 
-## 📖 Citation
-If you use PrivateGPT in a paper, check out the [Citation file](CITATION.cff) for the correct citation.  
-You can also use the "Cite this repository" button in this repo to get the citation in different formats.
+cmd
 
-Here are a couple of examples:
+`set PGPT_PROFILES=ollama make run`
 
-#### BibTeX
-```bibtex
-@software{Martinez_Toro_PrivateGPT_2023,
-author = {Martínez Toro, Iván and Gallego Vico, Daniel and Orgaz, Pablo},
-license = {Apache-2.0},
-month = may,
-title = {{PrivateGPT}},
-url = {https://github.com/imartinez/privateGPT},
-year = {2023}
-}
-```
+### Локальная настройка с Ollama - РЕКОМЕНДУЕМАЯ
 
-#### APA
-```
-Martínez Toro, I., Gallego Vico, D., & Orgaz, P. (2023). PrivateGPT [Computer software]. https://github.com/imartinez/privateGPT
-```
+Самый простой способ запустить PrivateGPT полностью локально - использовать Ollama для LLM. Ollama предоставляет локальный LLM и Embeddings, легко устанавливаемые и используемые, абстрагируя сложность поддержки GPU. Это рекомендуемая настройка для локальной разработки.
 
-## 🤗 Partners & Supporters
-PrivateGPT is actively supported by the teams behind:
-* [Qdrant](https://qdrant.tech/), providing the default vector database
-* [Fern](https://buildwithfern.com/), providing Documentation and SDKs
-* [LlamaIndex](https://www.llamaindex.ai/), providing the base RAG framework and abstractions
+1.  Перейдите на [ollama.ai](https://ollama.ai) и следуйте инструкциям для установки Ollama на ваш компьютер.
+2.  После установки убедитесь, что приложение Ollama закрыто.
+3.  Установите модели для использования, настройки по умолчанию `settings-ollama.yaml` настроены для использования LLM mistral 7b (~4GB) и Embeddings nomic-embed-text (~275MB). Следовательно:
 
-This project has been strongly influenced and supported by other amazing projects like 
-[LangChain](https://github.com/hwchase17/langchain),
-[GPT4All](https://github.com/nomic-ai/gpt4all),
-[LlamaCpp](https://github.com/ggerganov/llama.cpp),
-[Chroma](https://www.trychroma.com/)
-and [SentenceTransformers](https://www.sbert.net/).
+    bash
+
+    `ollama pull mistral ollama pull nomic-embed-text`
+
+4.  Запустите сервис Ollama (он запустит локальный сервер вывода, обслуживающий LLM и Embeddings):
+
+    bash
+
+    `ollama serve`
+
+5.  В другом терминале установите PrivateGPT с помощью следующей команды:
+
+    bash
+
+    `poetry install --extras "ui llms-ollama embeddings-ollama vector-stores-qdrant"`
+
+6.  После установки вы можете запустить PrivateGPT. Убедитесь, что Ollama работает локально перед запуском следующей команды.
+
+    bash
+
+    `PGPT_PROFILES=ollama make run`
+
+PrivateGPT будет использовать уже существующий файл настроек `settings-ollama.yaml`, который настроен для использования Ollama LLM и Embeddings, а также Qdrant. Проверьте и адаптируйте его под свои нужды (разные модели, разные порты Ollama и т.д.).
+
+UI будет доступен по адресу [http://localhost:8001](http://localhost:8001).
+
+### Приватная настройка с Sagemaker
+
+Если вам требуется больше производительности, вы можете запустить версию PrivateGPT, которая использует мощные машины AWS Sagemaker для обслуживания LLM и Embeddings.
+
+1.  Вам необходимо иметь доступ к конечным точкам вывода Sagemaker для LLM и/или Embeddings, а также правильно настроенные AWS учетные данные.
+2.  Отредактируйте файл `settings-sagemaker.yaml`, чтобы включить правильные конечные точки Sagemaker.
+3.  Установите PrivateGPT с помощью следующей команды:
+
+    bash
+
+    `poetry install --extras "ui llms-sagemaker embeddings-sagemaker vector-stores-qdrant"`
+
+4.  После установки вы можете запустить PrivateGPT. Убедитесь, что Ollama работает локально перед запуском следующей команды.
+
+    bash
+
+    `PGPT_PROFILES=sagemaker make run`
+
+PrivateGPT будет использовать уже существующий файл настроек `settings-sagemaker.yaml`, который настроен для использования конечных точек Sagemaker LLM и Embeddings, а также Qdrant.
+
+UI будет доступен по адресу [http://localhost:8001](http://localhost:8001).
+
+### Неприватная настройка с использованием OpenAI для тестирования
+
+Если вы хотите протестировать PrivateGPT с LLM и Embeddings от OpenAI (имейте в виду, что ваши данные будут отправляться в OpenAI!), выполните следующую команду:
+
+1.  Вам понадобится ключ API OPENAI для запуска этой настройки.
+2.  Отредактируйте файл `settings-openai.yaml`, чтобы включить правильный ключ API. Никогда не коммитьте его! Это секрет! В качестве альтернативы редактированию `settings-openai.yaml`, вы можете просто установить переменную окружения `OPENAI_API_KEY`.
+3.  Установите PrivateGPT с помощью следующей команды:
+
+    bash
+
+    `poetry install --extras "ui llms-openai embeddings-openai vector-stores-qdrant"`
+
+4.  После установки вы можете запустить PrivateGPT.
+
+    bash
+
+    `PGPT_PROFILES=openai make run`
+
+PrivateGPT будет использовать уже существующий файл настроек `settings-openai.yaml`, который настроен для использования конечных точек LLM и Embeddings от OpenAI, а также Qdrant.
+
+UI будет доступен по адресу [http://localhost:8001](http://localhost:8001).
+
+### Неприватная настройка с использованием Azure OpenAI для тестирования
+
+Если вы хотите протестировать PrivateGPT с LLM и Embeddings от Azure OpenAI (имейте в виду, что ваши данные будут отправляться в Azure OpenAI!), выполните следующую команду:
+
+1.  Вам необходимо иметь доступ к конечным точкам вывода Azure OpenAI для LLM и/или Embeddings, а также правильно настроенные учетные данные Azure OpenAI.
+2.  Отредактируйте файл `settings-azopenai.yaml`, чтобы включить правильные конечные точки Azure OpenAI.
+3.  Установите PrivateGPT с помощью следующей команды:
+
+    bash
+
+    `poetry install --extras "ui llms-azopenai embeddings-azopenai vector-st`
